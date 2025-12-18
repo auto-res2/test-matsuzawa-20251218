@@ -1,0 +1,20 @@
+{
+  "run_id": "comparative-1-resnet56-cifar10",
+  "method": "RAdam (Rectified Adam)",
+  "model": "ResNet-56",
+  "dataset": "CIFAR-10",
+  "optimizer": "radam",
+  "convergence_speed_to_90_percent_final_accuracy": 1,
+  "final_test_accuracy": 0.10013977635782748,
+  "best_val_accuracy": 0.09653662420382166,
+  "test_loss": 2.3067314259160443,
+  "accuracy_history": [
+    0.09653662420382166
+  ],
+  "loss_history": [
+    2.3081413909887813
+  ],
+  "early_stage_losses": {},
+  "training_epochs": 1,
+  "optuna_best_params": {}
+}

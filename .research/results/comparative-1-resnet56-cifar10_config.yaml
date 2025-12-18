@@ -1,0 +1,85 @@
+wandb:
+  entity: gengaru617-personal
+  project: '2025-11-19'
+  mode: disabled
+mode: trial
+run: comparative-1-resnet56-cifar10
+results_dir: .research/results
+run_id: comparative-1-resnet56-cifar10
+method: RAdam (Rectified Adam)
+model:
+  name: ResNet-56
+  architecture: resnet56
+  num_classes: 10
+  input_channels: 3
+  depth: 56
+dataset:
+  name: CIFAR-10
+  data_root: ./data/cifar10
+  train_split: 0.9
+  val_split: 0.1
+  test_split: 0.1
+  num_classes: 10
+  preprocessing:
+    normalize: true
+    augmentation: true
+    augmentation_types:
+    - random_crop
+    - random_flip
+    - random_rotation
+training:
+  learning_rate: 0.001
+  batch_size: 32
+  epochs: 1
+  optimizer: radam
+  warmup_steps: 500
+  weight_decay: 0.0001
+  gradient_clip: 1.0
+  scheduler: cosine
+  seed: 42
+  optimizer_params:
+    betas:
+    - 0.9
+    - 0.999
+    eps: 1.0e-08
+  num_seeds: 5
+optuna:
+  enabled: false
+  n_trials: 0
+  search_spaces:
+  - param_name: learning_rate
+    distribution_type: loguniform
+    low: 0.0001
+    high: 0.01
+  - param_name: weight_decay
+    distribution_type: loguniform
+    low: 1.0e-05
+    high: 0.001
+  - param_name: betas_0
+    distribution_type: uniform
+    low: 0.85
+    high: 0.95
+  - param_name: betas_1
+    distribution_type: uniform
+    low: 0.99
+    high: 0.999
+evaluation:
+  primary_metric: convergence_speed_to_90_percent_final_accuracy
+  metrics:
+  - convergence_speed_to_90_percent_final_accuracy
+  - final_accuracy
+  - early_stage_loss_at_checkpoints
+  - stability_across_seeds
+  checkpoint_intervals:
+  - 5
+  - 10
+  - 20
+  - 50
+  - 100
+  - 150
+  - 200
+runner:
+  gpu_runner: true
+  device: cuda
+  num_gpus: 1
+  vram_gb: 80
