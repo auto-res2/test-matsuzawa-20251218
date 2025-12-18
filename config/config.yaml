@@ -1,0 +1,8 @@
+wandb:
+  entity: gengaru617-personal
+  project: 2025-11-19
+  mode: online
+
+mode: full
+run: null
+results_dir: null

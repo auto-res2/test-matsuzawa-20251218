@@ -1,1 +1,37 @@
-# Please list the required python packages.
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sara-optimizer-research"
+version = "0.1.0"
+description = "Spectral-Aware Rectified Adam (SARA) optimizer research"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "hydra-core>=1.3.0",
+    "omegaconf>=2.3.0",
+    "wandb>=0.15.0",
+    "numpy>=1.23.0",
+    "scipy>=1.10.0",
+    "pandas>=1.5.0",
+    "matplotlib>=3.6.0",
+    "seaborn>=0.12.0",
+    "datasets>=2.12.0",
+    "transformers>=4.30.0",
+    "optuna>=3.10.0",
+    "tensorboard>=2.12.0",
+    "tqdm>=4.65.0",
+    "pyyaml>=6.0.0",
+    "sacrebleu>=2.3.0",
+    "torch-optimizer>=0.3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.0.260",
+]
