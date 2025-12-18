@@ -11,7 +11,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-@hydra.main(version_base=None, config_path="config", config_name="config")
+@hydra.main(version_base=None, config_path="../config", config_name="config")
 def main(cfg: DictConfig) -> None:
     """Main orchestrator for training with Hydra configuration."""
     
