@@ -20,7 +20,6 @@ from optuna.samplers import TPESampler
 # Import local modules
 from src.model import build_model
 from src.preprocess import build_dataset, get_data_loaders
-from src.optimizer_sara import SARA
 
 logger = logging.getLogger(__name__)
 
@@ -362,15 +361,20 @@ def create_optuna_objective(cfg, train_loader, val_loader, test_loader, device, 
             optimizer_name = cfg.training.optimizer.lower()
             
             if "sara" in optimizer_name:
+                try:
+                    from src.optimizer_sara import SARA
+                except ImportError:
+                    raise ImportError("SARA optimizer not found. Ensure src/optimizer_sara.py exists.")
+
                 optimizer_params = cfg.training.get("optimizer_params", {})
                 if "base_threshold" in trial_params:
                     optimizer_params["base_threshold"] = trial_params["base_threshold"]
                 if "histogram_window" in trial_params:
                     optimizer_params["histogram_window"] = trial_params["histogram_window"]
-                
+
                 lr = trial_params.get("learning_rate", cfg.training.learning_rate)
                 wd = trial_params.get("weight_decay", cfg.training.weight_decay)
-                
+
                 optimizer = SARA(
                     model.parameters(),
                     lr=lr,
@@ -567,15 +571,20 @@ def train_main(cfg: DictConfig) -> None:
         logger.info(f"Setting up optimizer: {optimizer_name}")
         
         if "sara" in optimizer_name:
+            try:
+                from src.optimizer_sara import SARA
+            except ImportError:
+                raise ImportError("SARA optimizer not found. Ensure src/optimizer_sara.py exists.")
+
             optimizer_params = cfg.training.get("optimizer_params", {})
             if "base_threshold" in best_trial_params:
                 optimizer_params["base_threshold"] = best_trial_params["base_threshold"]
             if "histogram_window" in best_trial_params:
                 optimizer_params["histogram_window"] = best_trial_params["histogram_window"]
-            
+
             lr = best_trial_params.get("learning_rate", cfg.training.learning_rate)
             wd = best_trial_params.get("weight_decay", cfg.training.weight_decay)
-            
+
             optimizer = SARA(
                 model.parameters(),
                 lr=lr,
