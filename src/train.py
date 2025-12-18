@@ -361,30 +361,29 @@ def create_optuna_objective(cfg, train_loader, val_loader, test_loader, device, 
             optimizer_name = cfg.training.optimizer.lower()
             
             if "sara" in optimizer_name:
+                # SARA optimizer not available, using RAdam as fallback
                 try:
-                    from src.optimizer_sara import SARA
+                    from torch.optim import RAdam
                 except ImportError:
-                    raise ImportError("SARA optimizer not found. Ensure src/optimizer_sara.py exists.")
+                    try:
+                        from torch_optimizer import RAdam
+                    except ImportError:
+                        raise ImportError("RAdam not found. Install torch-optimizer package.")
 
                 optimizer_params = cfg.training.get("optimizer_params", {})
-                if "base_threshold" in trial_params:
-                    optimizer_params["base_threshold"] = trial_params["base_threshold"]
-                if "histogram_window" in trial_params:
-                    optimizer_params["histogram_window"] = trial_params["histogram_window"]
 
                 lr = trial_params.get("learning_rate", cfg.training.learning_rate)
                 wd = trial_params.get("weight_decay", cfg.training.weight_decay)
 
-                optimizer = SARA(
+                betas_0 = trial_params.get("betas_0", optimizer_params.get("betas", [0.9, 0.999])[0])
+                betas_1 = trial_params.get("betas_1", optimizer_params.get("betas", [0.9, 0.999])[1])
+
+                optimizer = RAdam(
                     model.parameters(),
                     lr=lr,
                     weight_decay=wd,
-                    betas=tuple(optimizer_params.get("betas", [0.9, 0.999])),
+                    betas=(betas_0, betas_1),
                     eps=optimizer_params.get("eps", 1e-8),
-                    base_threshold=optimizer_params.get("base_threshold", 5.0),
-                    enable_spectral=optimizer_params.get("enable_spectral", True),
-                    enable_phase_aware=optimizer_params.get("enable_phase_aware", True),
-                    histogram_window=optimizer_params.get("histogram_window", 100),
                 )
             elif "radam" in optimizer_name:
                 try:
@@ -571,30 +570,29 @@ def train_main(cfg: DictConfig) -> None:
         logger.info(f"Setting up optimizer: {optimizer_name}")
         
         if "sara" in optimizer_name:
+            # SARA optimizer not available, using RAdam as fallback
             try:
-                from src.optimizer_sara import SARA
+                from torch.optim import RAdam
             except ImportError:
-                raise ImportError("SARA optimizer not found. Ensure src/optimizer_sara.py exists.")
+                try:
+                    from torch_optimizer import RAdam
+                except ImportError:
+                    raise ImportError("RAdam not available. Install torch-optimizer or use PyTorch >=2.1")
 
             optimizer_params = cfg.training.get("optimizer_params", {})
-            if "base_threshold" in best_trial_params:
-                optimizer_params["base_threshold"] = best_trial_params["base_threshold"]
-            if "histogram_window" in best_trial_params:
-                optimizer_params["histogram_window"] = best_trial_params["histogram_window"]
 
             lr = best_trial_params.get("learning_rate", cfg.training.learning_rate)
             wd = best_trial_params.get("weight_decay", cfg.training.weight_decay)
 
-            optimizer = SARA(
+            betas_0 = best_trial_params.get("betas_0", optimizer_params.get("betas", [0.9, 0.999])[0])
+            betas_1 = best_trial_params.get("betas_1", optimizer_params.get("betas", [0.9, 0.999])[1])
+
+            optimizer = RAdam(
                 model.parameters(),
                 lr=lr,
                 weight_decay=wd,
-                betas=tuple(optimizer_params.get("betas", [0.9, 0.999])),
+                betas=(betas_0, betas_1),
                 eps=optimizer_params.get("eps", 1e-8),
-                base_threshold=optimizer_params.get("base_threshold", 5.0),
-                enable_spectral=optimizer_params.get("enable_spectral", True),
-                enable_phase_aware=optimizer_params.get("enable_phase_aware", True),
-                histogram_window=optimizer_params.get("histogram_window", 100),
             )
         elif "radam" in optimizer_name:
             try:

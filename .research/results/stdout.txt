@@ -42,3 +42,21 @@ Training completed for run_id=comparative-1-resnet56-cifar10
 
 === [TRIAL RUN] PASSED for comparative-1-resnet56-cifar10 at Thu Dec 18 05:52:02 UTC 2025 ===
 
+=== [UV SYNC] Start at Thu Dec 18 05:52:46 UTC 2025 ===
+=== [UV SYNC] Finished successfully at Thu Dec 18 05:53:20 UTC 2025 ===
+=== [TRIAL RUN] Start for proposed-resnet56-cifar10 at Thu Dec 18 05:53:20 UTC 2025 ===
+[INFO] Trial mode: epochs=1, wandb disabled, optuna disabled
+[2025-12-18 05:53:21,357][__main__][INFO] - Saved merged config to .research/results/proposed-resnet56-cifar10_config.yaml
+
+================================================================================
+Launching training for run_id=proposed-resnet56-cifar10, mode=trial
+================================================================================
+
+[2025-12-18 05:53:28,029][src.train][INFO] - Using device: cpu
+[2025-12-18 05:53:28,030][src.train][INFO] - Random seed set to 42
+[2025-12-18 05:53:28,030][src.train][INFO] - WandB disabled (trial mode)
+[2025-12-18 05:53:28,030][src.train][INFO] - Building model: ResNet-56
+[2025-12-18 05:53:28,117][src.train][INFO] - Model parameters: 13,628,234
+[2025-12-18 05:53:28,118][src.train][INFO] - Building dataset: CIFAR-10
+[2025-12-18 05:53:34,364][src.train][INFO] - Train samples: 45000, Val samples: 5000, Test samples: 10000
+[2025-12-18 05:53:34,364][src.train][INFO] - Setting up optimizer: sara
