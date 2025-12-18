@@ -60,3 +60,47 @@ Launching training for run_id=proposed-resnet56-cifar10, mode=trial
 [2025-12-18 05:53:28,118][src.train][INFO] - Building dataset: CIFAR-10
 [2025-12-18 05:53:34,364][src.train][INFO] - Train samples: 45000, Val samples: 5000, Test samples: 10000
 [2025-12-18 05:53:34,364][src.train][INFO] - Setting up optimizer: sara
+=== [UV SYNC] Start at Thu Dec 18 05:57:02 UTC 2025 ===
+=== [UV SYNC] Finished successfully at Thu Dec 18 05:57:35 UTC 2025 ===
+=== [TRIAL RUN] Start for proposed-resnet56-cifar10 at Thu Dec 18 05:57:35 UTC 2025 ===
+[INFO] Trial mode: epochs=1, wandb disabled, optuna disabled
+[2025-12-18 05:57:35,626][__main__][INFO] - Saved merged config to .research/results/proposed-resnet56-cifar10_config.yaml
+
+================================================================================
+Launching training for run_id=proposed-resnet56-cifar10, mode=trial
+================================================================================
+
+[2025-12-18 05:57:42,233][src.train][INFO] - Using device: cpu
+[2025-12-18 05:57:42,234][src.train][INFO] - Random seed set to 42
+[2025-12-18 05:57:42,234][src.train][INFO] - WandB disabled (trial mode)
+[2025-12-18 05:57:42,234][src.train][INFO] - Building model: ResNet-56
+[2025-12-18 05:57:42,319][src.train][INFO] - Model parameters: 13,628,234
+[2025-12-18 05:57:42,320][src.train][INFO] - Building dataset: CIFAR-10
+[2025-12-18 05:57:47,039][src.train][INFO] - Train samples: 45000, Val samples: 5000, Test samples: 10000
+[2025-12-18 05:57:47,039][src.train][INFO] - Setting up optimizer: sara
+[2025-12-18 05:57:47,041][src.train][INFO] - Starting training for 1 epochs
+[2025-12-18 05:57:47,041][src.train][INFO] - 
+============================================================
+[2025-12-18 05:57:47,041][src.train][INFO] - Epoch 1/1
+[2025-12-18 05:57:47,041][src.train][INFO] - ============================================================
+[2025-12-18 05:59:51,832][src.train][INFO] - Train Loss: 2.6521, Train Acc: 0.0938
+[2025-12-18 05:59:51,832][src.train][INFO] - Val Loss: 2.3081, Val Acc: 0.0965
+[2025-12-18 05:59:52,160][src.train][INFO] - Convergence to 90% final accuracy at epoch 1
+[2025-12-18 05:59:52,160][src.train][INFO] - 
+============================================================
+[2025-12-18 05:59:52,160][src.train][INFO] - Final Evaluation on Test Set
+[2025-12-18 05:59:52,160][src.train][INFO] - ============================================================
+[2025-12-18 06:03:49,083][src.train][INFO] - Test Loss: 2.3067, Test Accuracy: 0.1001
+[2025-12-18 06:03:49,083][src.train][INFO] - 
+Convergence Speed (epochs to 90% final accuracy): 1
+[2025-12-18 06:03:49,083][src.train][INFO] - Final Test Accuracy: 0.1001
+[2025-12-18 06:03:49,084][src.train][INFO] - Saved metrics to .research/results/proposed-resnet56-cifar10/metrics/metrics.json
+[2025-12-18 06:03:49,084][src.train][INFO] - 
+Training completed successfully!
+
+================================================================================
+Training completed for run_id=proposed-resnet56-cifar10
+================================================================================
+
+=== [TRIAL RUN] PASSED for proposed-resnet56-cifar10 at Thu Dec 18 06:03:49 UTC 2025 ===
+
