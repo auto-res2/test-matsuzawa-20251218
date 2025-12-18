@@ -41,7 +41,10 @@ def main(cfg: DictConfig) -> None:
     
     # Load run-specific config
     run_cfg = OmegaConf.load(run_config_path)
-    
+
+    # Disable struct mode to allow merging new keys
+    OmegaConf.set_struct(cfg, False)
+
     # Merge with base config
     cfg = OmegaConf.merge(cfg, run_cfg)
     
